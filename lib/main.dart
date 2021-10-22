@@ -8,7 +8,7 @@ class Quizzler extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.teal,
+          backgroundColor: Colors.grey.shade700,
           title: Text('Quizzler'),
         ),
         backgroundColor: Colors.grey.shade900,
@@ -29,6 +29,16 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
+  List<Icon> scrollkeeper = [
+    Icon(
+      Icons.check,
+      color: Colors.green,
+    ),
+    Icon(
+      Icons.close,
+      color: Colors.red,
+    ),
+  ];
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -54,18 +64,50 @@ class _QuizPageState extends State<QuizPage> {
             child: FlatButton(
               color: Colors.green,
               textColor: Colors.white,
-              onPressed: () {},
+              onPressed: () {
+                setState(() {
+                  scrollkeeper.add(
+                    Icon(
+                      Icons.check,
+                      color: Colors.green,
+                    ),
+                  );
+                });
+              },
               child: Text(
                 'True',
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: Colors.white, fontSize: 20.0),
               ),
             ),
           ),
         ),
-        // Expanded(
-        //   flex: 3,
-        //   child: null,
-        // ),
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.all(15.0),
+            // ignore: deprecated_member_use
+            child: FlatButton(
+              color: Colors.red,
+              textColor: Colors.white,
+              onPressed: () {
+                setState(() {
+                  scrollkeeper.add(
+                    Icon(
+                      Icons.close,
+                      color: Colors.red,
+                    ),
+                  );
+                });
+              },
+              child: Text(
+                'False',
+                style: TextStyle(color: Colors.white, fontSize: 20.0),
+              ),
+            ),
+          ),
+        ),
+        Row(
+          children: scrollkeeper,
+        ),
       ],
     );
   }
