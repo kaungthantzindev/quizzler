@@ -44,6 +44,28 @@ class _QuizPageState extends State<QuizPage> {
   //     q: 'You can lead a cow down stairs but not up stairs.', a: false);
 
   // int qnumber = 0;
+  void checkAnswer(bool userPickup) {
+    bool correctanswer = quizbrain.getCorrectAnswer();
+    setState(() {
+      if (userPickup == correctanswer) {
+        scrollkeeper.add(
+          Icon(
+            Icons.check,
+            color: Colors.green,
+          ),
+        );
+      } else {
+        scrollkeeper.add(
+          Icon(
+            Icons.close,
+            color: Colors.red,
+          ),
+        );
+      }
+
+      quizbrain.nextQuiz();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,15 +94,7 @@ class _QuizPageState extends State<QuizPage> {
               color: Colors.green,
               textColor: Colors.white,
               onPressed: () {
-                bool correctanswer = quizbrain.getCorrectAnswer();
-                setState(() {
-                  if (correctanswer == true) {
-                    print('user got true');
-                  } else {
-                    print('user got false');
-                  }
-                });
-                quizbrain.nextQuiz();
+                checkAnswer(true);
               },
               child: Text(
                 'True',
@@ -97,15 +111,7 @@ class _QuizPageState extends State<QuizPage> {
               color: Colors.red,
               textColor: Colors.white,
               onPressed: () {
-                bool correctanswer = quizbrain.getCorrectAnswer();
-                setState(() {
-                  if (correctanswer == false) {
-                    print('user got true');
-                  } else {
-                    print('user got false');
-                  }
-                  quizbrain.nextQuiz();
-                });
+                checkAnswer(false);
               },
               child: Text(
                 'False',
